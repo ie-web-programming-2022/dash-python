@@ -3,13 +3,12 @@ title: Advanced Programming with Python
 subtitle: Dash
 author: Pepe García <jgarciah@faculty.ie.edu>
 email: jgarciah@faculty.ie.edu
-lang: en
 ---
 
 # Plan for today
 
+- Questions about assignment?
 - Learn about dash
-- Questions regarding assignment
 
 # Dash
 
@@ -29,61 +28,61 @@ lang: en
 
 Dash is a library for creating data visualizations.  A big difference
 with other libraries is that we'll be able to do everything in Python,
-we won't need any other language.
+we won't need any JS to make it work.
+
+# Installing dash
+
+Dash is **not included in Anaconda**, we need to install it ourselves.  We'll use a virtual environment for that.
+
+(remember, `$` indicates a new command in the terminal, don't write it)
+
+```
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+```
+
+After all this, modify the interpreter in VSCode too.
 
 # Dash. Layout
 
-There are a couple of modules we'll need to import:
+There are a couple of things we'll need to import from the main dash module:
 
-- `import dash_html_components as html`
-- `import dash_core_components as dcc`
+- `from dash import html`
+- `from dash import dcc`
+- `from dash import Dash`
 
-**`html`** is used to create all HTML tags we're already used to
+**`html`** is used to create HTML programatically
 
-**`dcc`** is used to create more interesting visual components, such
-as graphs, or selectors.
+**`dcc`** (stands for dash core components) is used to create more
+interesting visual components, such as graphs, or selectors.
+
+**`Dash`** is the entry point for our application.
 
 # Dash. Layout
 
 We can create HTML layouts directly in Python with Dash
 
 ```python
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc # stands for dash core components
+from dash import html
 
-html.Div(children = [
+app = Dash(__name__)
+app.layout = html.Div(children = [
     html.H1("title"),
     dcc.Dropdown(
-        id="district",
-        options=districts,
-        multi=True,
-        value=["SALAMANCA", "ARGANZUELA"]
+        id="Are you over 18?",
+        options={"yes": True, "no": False},
+        multi=False,
+        value=[]
     )
 ])
+
+app.run_server()
 ```
 
 It's important to add unique **`id`** attributes to all elements that
 will be used interactively.
-
-# Dash. Graphs
-
-```python
-import dash_core_components as dcc
-import dash_html_components as html
-
-dcc.Graph(
-    id='first-graph',
-    figure={
-        'data': [
-            {'x': [1, 2, 3], 'y': [4, 1, 2], 'type': 'bar', 'name': 'bar1'},
-            {'x': [1, 2, 3], 'y': [2, 4, 5], 'type': 'bar', 'name': 'bar2'},
-        ],
-        'layout': {
-            'title': 'Dash Data Visualization'
-        }
-    }
-)
-```
 
 # Practice
 
@@ -106,9 +105,28 @@ def update(districts):
 
 # Practice
 
-let's see
+let's see a simple example of callbacks.
 
 **example2.py**
+
+# Dash. Graphs
+
+We can introduce plotly graphs in our HTML layouts with the **`dcc.Graph`** class.
+
+```python
+dcc.Graph(
+    id='first-graph',
+    figure={
+        'data': [
+            {'x': [1, 2, 3], 'y': [4, 1, 2], 'type': 'bar', 'name': 'bar1'},
+            {'x': [1, 2, 3], 'y': [2, 4, 5], 'type': 'bar', 'name': 'bar2'},
+        ],
+        'layout': {
+            'title': 'Dash Data Visualization'
+        }
+    }
+)
+```
 
 # Practice
 

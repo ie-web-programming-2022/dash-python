@@ -1,7 +1,5 @@
 import pandas as pd
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc, html, Dash
 from dash.dependencies import Input, Output
 
 import plotly.graph_objects as go
@@ -10,7 +8,7 @@ import plotly.express as px
 df = pd.read_csv("bike-accidents.csv")
 df["HORA"] = df["HORA"].map(lambda time: int(time.split(":")[0]))
 
-app = dash.Dash(__name__)
+app = Dash(__name__)
 
 districts = [{"label": district, "value": district} for district in  df["DISTRITO"].unique()]
 
