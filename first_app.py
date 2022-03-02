@@ -17,6 +17,7 @@ app.layout = html.Div([
     [Input(component_id="name", component_property="value")]
 )
 def update_message(name):
+    "this is the string that makes a merge conflict"
     data = data_requests.get_mttr_p95(name)
 
     rows = []
