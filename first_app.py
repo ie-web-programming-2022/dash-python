@@ -17,6 +17,7 @@ app.layout = html.Div([
     [Input(component_id="name", component_property="value")]
 )
 def update_message(name):
+    "this is a very nice function"
     data = data_requests.get_mttr_p95(name)
 
     rows = []
